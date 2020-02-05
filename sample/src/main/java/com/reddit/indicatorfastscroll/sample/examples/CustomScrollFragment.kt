@@ -66,7 +66,8 @@ class CustomScrollFragment : Fragment() {
                 override fun onItemIndicatorSelected(
                         indicator: FastScrollItemIndicator,
                         indicatorCenterY: Int,
-                        itemPosition: Int
+                        itemPosition: Int,
+                        moveInstantly: Boolean
                 ) {
                     recyclerView.stopScroll()
                     smoothScroller.targetPosition = itemPosition
