@@ -5,25 +5,25 @@ import kotlin.reflect.KProperty
 
 internal class UpdateDelegate<T>(val update: () -> Unit) : ReadWriteProperty<Any?, T> {
 
-  var set = false
-  var value: T? = null
+    var set = false
+    var value: T? = null
 
-  override fun getValue(thisRef: Any?, property: KProperty<*>): T {
-    if (!set) {
-      throw IllegalStateException("Property ${property.name} should be initialized before get.")
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T {
+        if (!set) {
+            throw IllegalStateException("Property ${property.name} should be initialized before get.")
+        }
+        @Suppress("UNCHECKED_CAST")
+        return value as T
     }
-    @Suppress("UNCHECKED_CAST")
-    return value as T
-  }
 
-  override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-    val wasSet = set
-    this.set = true
-    this.value = value
-    if (wasSet) {
-      update()
+    override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        val wasSet = set
+        this.set = true
+        this.value = value
+        if (wasSet) {
+            update()
+        }
     }
-  }
 }
 
 /**

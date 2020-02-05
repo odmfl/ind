@@ -17,50 +17,50 @@ import com.reddit.indicatorfastscroll.sample.SampleAdapter
 
 class StyledFragment : Fragment() {
 
-  private lateinit var recyclerView: RecyclerView
-  private lateinit var fastScrollerView: FastScrollerView
-  private lateinit var fastScrollerThumbView: FastScrollerThumbView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var fastScrollerView: FastScrollerView
+    private lateinit var fastScrollerThumbView: FastScrollerThumbView
 
-  override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
-  ): View {
-    val view = inflater.inflate(R.layout.sample_styled, container, false)
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View {
+        val view = inflater.inflate(R.layout.sample_styled, container, false)
 
-    val data = SAMPLE_DATA_TEXT
+        val data = SAMPLE_DATA_TEXT
 
-    recyclerView = view.findViewById(R.id.sample_styled_recyclerview)
-    recyclerView.apply {
-      layoutManager = LinearLayoutManager(context)
-      adapter = SampleAdapter(data)
+        recyclerView = view.findViewById(R.id.sample_styled_recyclerview)
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = SampleAdapter(data)
+        }
+
+        fastScrollerView = view.findViewById(R.id.sample_styled_fastscroller)
+        fastScrollerView.apply {
+            setupWithRecyclerView(
+                    recyclerView,
+                    { position ->
+                        data[position]
+                                .takeIf(ListItem::showInFastScroll)
+                                ?.let { item ->
+                                    FastScrollItemIndicator.Text(
+                                            item
+                                                    .title
+                                                    .substring(0, 1)
+                                                    .toUpperCase()
+                                    )
+                                }
+                    }
+            )
+        }
+
+        fastScrollerThumbView = view.findViewById(R.id.sample_styled_fastscroller_thumb)
+        fastScrollerThumbView.apply {
+            setupWithFastScroller(fastScrollerView)
+        }
+
+        return view
     }
-
-    fastScrollerView = view.findViewById(R.id.sample_styled_fastscroller)
-    fastScrollerView.apply {
-      setupWithRecyclerView(
-          recyclerView,
-          { position ->
-            data[position]
-                .takeIf(ListItem::showInFastScroll)
-                ?.let { item ->
-                  FastScrollItemIndicator.Text(
-                      item
-                          .title
-                          .substring(0, 1)
-                          .toUpperCase()
-                  )
-                }
-          }
-      )
-    }
-
-    fastScrollerThumbView = view.findViewById(R.id.sample_styled_fastscroller_thumb)
-    fastScrollerThumbView.apply {
-      setupWithFastScroller(fastScrollerView)
-    }
-
-    return view
-  }
 
 }
