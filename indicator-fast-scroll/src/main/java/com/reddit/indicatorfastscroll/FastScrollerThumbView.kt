@@ -68,12 +68,9 @@ class FastScrollerThumbView @JvmOverloads constructor(
                 R.style.Widget_IndicatorFastScroll_FastScrollerThumb
         ).use { attrsArray ->
             throwIfMissingAttrs(styleRes = R.style.Widget_IndicatorFastScroll_FastScrollerThumb) {
-                thumbColor = attrsArray
-                        .getColorStateListOrThrow(R.styleable.FastScrollerThumbView_thumbColor)
+                thumbColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerThumbView_thumbColor)
                 iconColor = attrsArray.getColorOrThrow(R.styleable.FastScrollerThumbView_iconColor)
-                textAppearanceRes = attrsArray.getResourceIdOrThrow(
-                        R.styleable.FastScrollerThumbView_android_textAppearance
-                )
+                textAppearanceRes = attrsArray.getResourceIdOrThrow(R.styleable.FastScrollerThumbView_android_textAppearance)
                 textColor = attrsArray.getColorOrThrow(R.styleable.FastScrollerThumbView_android_textColor)
             }
         }

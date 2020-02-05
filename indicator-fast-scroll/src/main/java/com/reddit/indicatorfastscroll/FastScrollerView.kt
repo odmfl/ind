@@ -44,7 +44,6 @@ class FastScrollerView @JvmOverloads constructor(
         defStyleAttr,
         defStyleRes
 ) {
-
     var iconColor: ColorStateList? by onUpdate(::bindItemIndicatorViews)
     var textAppearanceRes: Int by onUpdate(::bindItemIndicatorViews)
     var textColor: ColorStateList? by onUpdate(::bindItemIndicatorViews)
@@ -110,11 +109,8 @@ class FastScrollerView @JvmOverloads constructor(
         ).use { attrsArray ->
             throwIfMissingAttrs(styleRes = R.style.Widget_IndicatorFastScroll_FastScroller) {
                 iconColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_iconColor)
-                textAppearanceRes = attrsArray.getResourceIdOrThrow(
-                        R.styleable.FastScrollerView_android_textAppearance
-                )
-                textColor = attrsArray
-                        .getColorStateListOrThrow(R.styleable.FastScrollerView_android_textColor)
+                textAppearanceRes = attrsArray.getResourceIdOrThrow(R.styleable.FastScrollerView_android_textAppearance)
+                textColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_android_textColor)
                 textPadding = attrsArray.getDimensionOrThrow(R.styleable.FastScrollerView_textPadding)
             }
         }
