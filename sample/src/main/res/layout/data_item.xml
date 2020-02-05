@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:gravity="start|center_vertical"
-    android:paddingEnd="16dp"
     android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-    tools:text="Item"
-    />
+    tools:text="Item" />

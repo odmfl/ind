@@ -6,9 +6,8 @@
     android:drawablePadding="16dp"
     android:fontFamily="sans-serif-medium"
     android:gravity="start|center_vertical"
-    android:paddingEnd="16dp"
     android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
     android:textColor="?colorPrimary"
-    tools:text="Item"
-    />
+    tools:text="Item" />
