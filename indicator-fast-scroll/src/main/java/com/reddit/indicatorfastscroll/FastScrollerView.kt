@@ -272,13 +272,14 @@ class FastScrollerView @JvmOverloads constructor(
                 .let(ItemIndicatorWithPosition::second)
 
         if (position != lastSelectedPosition) {
+            val isLastNull = lastSelectedPosition == null
             lastSelectedPosition = position
             if (useDefaultScroller) {
                 scrollToPosition(position)
             }
 
             itemIndicatorSelectedCallbacks.forEach {
-                it.onItemIndicatorSelected(indicator, indicatorCenterY, position)
+                it.onItemIndicatorSelected(indicator, indicatorCenterY, position, isLastNull)
             }
         }
     }
@@ -370,7 +371,8 @@ class FastScrollerView @JvmOverloads constructor(
         fun onItemIndicatorSelected(
                 indicator: FastScrollItemIndicator,
                 indicatorCenterY: Int,
-                itemPosition: Int
+                itemPosition: Int,
+                moveInstantly: Boolean
         )
     }
 }
