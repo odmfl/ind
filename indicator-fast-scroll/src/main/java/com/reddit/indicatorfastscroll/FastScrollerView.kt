@@ -3,9 +3,11 @@ package com.reddit.indicatorfastscroll
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
-import android.os.Build
 import android.util.AttributeSet
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -268,19 +270,13 @@ class FastScrollerView @JvmOverloads constructor(
         val position = itemIndicatorsWithPositions
                 .first { it.first == indicator }
                 .let(ItemIndicatorWithPosition::second)
+
         if (position != lastSelectedPosition) {
             lastSelectedPosition = position
             if (useDefaultScroller) {
                 scrollToPosition(position)
             }
-            performHapticFeedback(
-                    // Semantically, dragging across the indicators is similar to moving a text handle
-                    if (Build.VERSION.SDK_INT >= 27) {
-                        HapticFeedbackConstants.TEXT_HANDLE_MOVE
-                    } else {
-                        HapticFeedbackConstants.KEYBOARD_TAP
-                    }
-            )
+
             itemIndicatorSelectedCallbacks.forEach {
                 it.onItemIndicatorSelected(indicator, indicatorCenterY, position)
             }
