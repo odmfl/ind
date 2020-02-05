@@ -5,5 +5,6 @@
   <dimen name="fast_scroller_thumb_elevation">2dp</dimen>
   <dimen name="fast_scroller_thumb_size">32dp</dimen>
   <dimen name="fast_scroller_default_text_padding">4dp</dimen>
+  <dimen name="big_text_size">18sp</dimen>
 
 </resources>

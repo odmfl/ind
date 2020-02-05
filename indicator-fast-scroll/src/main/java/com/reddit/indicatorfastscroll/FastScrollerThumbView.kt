@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -48,6 +49,7 @@ class FastScrollerThumbView @JvmOverloads constructor(
     var iconColor: Int by onUpdate(::applyStyle)
     var textAppearanceRes: Int by onUpdate(::applyStyle)
     var textColor: Int by onUpdate(::applyStyle)
+    var textSize: Float by onUpdate(::applyStyle)
 
     private val thumbView: ViewGroup
     private val textView: TextView
@@ -75,6 +77,7 @@ class FastScrollerThumbView @JvmOverloads constructor(
                 textColor = attrsArray.getColorOrThrow(R.styleable.FastScrollerThumbView_android_textColor)
             }
         }
+        textSize = context.resources.getDimension(R.dimen.big_text_size)
 
         LayoutInflater.from(context).inflate(R.layout.fast_scroller_thumb_view, this, true)
         thumbView = findViewById(R.id.fast_scroller_thumb)
@@ -128,6 +131,7 @@ class FastScrollerThumbView @JvmOverloads constructor(
         }
         TextViewCompat.setTextAppearance(textView, textAppearanceRes)
         textView.setTextColor(textColor)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         iconView.imageTintList = ColorStateList.valueOf(iconColor)
     }
 
