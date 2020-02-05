@@ -289,7 +289,7 @@ class FastScrollerView @JvmOverloads constructor(
     private fun scrollToPosition(position: Int) {
         recyclerView!!.apply {
             stopScroll()
-            smoothScrollToPosition(position)
+            scrollToPosition(position)
         }
     }
 
