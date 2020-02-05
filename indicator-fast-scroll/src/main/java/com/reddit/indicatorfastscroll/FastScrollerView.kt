@@ -16,6 +16,7 @@ import androidx.core.content.res.use
 import androidx.core.view.children
 import androidx.core.view.updatePadding
 import androidx.core.widget.TextViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.min
 
@@ -289,7 +290,7 @@ class FastScrollerView @JvmOverloads constructor(
     private fun scrollToPosition(position: Int) {
         recyclerView!!.apply {
             stopScroll()
-            scrollToPosition(position)
+            (layoutManager as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
         }
     }
 
