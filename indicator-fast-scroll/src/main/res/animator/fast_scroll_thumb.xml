@@ -3,17 +3,17 @@
     <item android:state_activated="true">
         <set>
             <objectAnimator
-                android:duration="@android:integer/config_shortAnimTime"
+                android:duration="0"
                 android:propertyName="scaleX"
                 android:valueTo="1"
                 android:valueType="floatType" />
             <objectAnimator
-                android:duration="@android:integer/config_shortAnimTime"
+                android:duration="0"
                 android:propertyName="scaleY"
                 android:valueTo="1"
                 android:valueType="floatType" />
             <objectAnimator
-                android:duration="@android:integer/config_shortAnimTime"
+                android:duration="0"
                 android:propertyName="alpha"
                 android:valueTo="1"
                 android:valueType="floatType" />
@@ -24,16 +24,19 @@
             <objectAnimator
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="scaleX"
+                android:startOffset="500"
                 android:valueTo="0"
                 android:valueType="floatType" />
             <objectAnimator
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="scaleY"
+                android:startOffset="500"
                 android:valueTo="0"
                 android:valueType="floatType" />
             <objectAnimator
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="alpha"
+                android:startOffset="500"
                 android:valueTo="0"
                 android:valueType="floatType" />
         </set>
