@@ -55,7 +55,6 @@ class FastScrollerView @JvmOverloads constructor(
 
     internal var onItemIndicatorTouched: ((Boolean) -> Unit)? = null
 
-    private val isSetup: Boolean get() = (recyclerView != null)
     private var recyclerView: RecyclerView? = null
     private var adapter: RecyclerView.Adapter<*>? = null
         set(value) {
@@ -161,7 +160,6 @@ class FastScrollerView @JvmOverloads constructor(
             showIndicator: ((FastScrollItemIndicator, Int, Int) -> Boolean)? = null,
             useDefaultScroller: Boolean = true
     ) {
-        check(!isSetup) { "Only set this view's RecyclerView once!" }
         this.recyclerView = recyclerView
         this.getItemIndicator = getItemIndicator
         this.showIndicator = showIndicator

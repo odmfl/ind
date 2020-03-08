@@ -55,7 +55,6 @@ class FastScrollerThumbView @JvmOverloads constructor(
     private val textView: TextView
     private val iconView: ImageView
 
-    private val isSetup: Boolean get() = (fastScrollerView != null)
     private var fastScrollerView: FastScrollerView? = null
 
     private val thumbAnimation: SpringAnimation
@@ -100,7 +99,6 @@ class FastScrollerThumbView @JvmOverloads constructor(
      */
     @SuppressLint("ClickableViewAccessibility")
     fun setupWithFastScroller(fastScrollerView: FastScrollerView) {
-        check(!isSetup) { "Only set this view's FastScrollerView once!" }
         this.fastScrollerView = fastScrollerView
 
         fastScrollerView.itemIndicatorSelectedCallbacks += this
