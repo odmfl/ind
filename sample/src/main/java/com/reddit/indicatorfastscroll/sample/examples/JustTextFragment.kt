@@ -45,8 +45,7 @@ class JustTextFragment : Fragment() {
                                 .takeIf(ListItem::showInFastScroll)
                                 ?.let { item ->
                                     FastScrollItemIndicator.Text(
-                                            item
-                                                    .title
+                                            item.title
                                                     .substring(0, 1)
                                                     .toUpperCase()
                                     )
