@@ -69,6 +69,7 @@ class FastScrollerView @JvmOverloads constructor(
 
     var pressedIconColor: Int? = null
     var pressedTextColor: Int? = null
+    var heightForCalculations = 0   // avoid glitching if the whole fastscroller doesnt fit onto the screen
 
     internal var itemIndicatorsBuilder: ItemIndicatorsBuilder = ItemIndicatorsBuilder()
 
@@ -215,8 +216,7 @@ class FastScrollerView @JvmOverloads constructor(
 
     private fun updateItemIndicators() {
         itemIndicatorsWithPositions.clear()
-        itemIndicatorsBuilder
-                .buildItemIndicators(recyclerView!!, getItemIndicator, showIndicator)
+        itemIndicatorsBuilder.buildItemIndicators(recyclerView!!, getItemIndicator, showIndicator)
                 .toCollection(itemIndicatorsWithPositions)
 
         bindItemIndicatorViews()
@@ -230,18 +230,14 @@ class FastScrollerView @JvmOverloads constructor(
         }
 
         fun createIconView(iconIndicator: FastScrollItemIndicator.Icon): ImageView =
-                (LayoutInflater.from(context).inflate(
-                        R.layout.fast_scroller_indicator_icon, this, false
-                ) as ImageView).apply {
+                (LayoutInflater.from(context).inflate(R.layout.fast_scroller_indicator_icon, this, false) as ImageView).apply {
                     iconColor?.let(::setImageTintList)
                     setImageResource(iconIndicator.iconRes)
                     tag = iconIndicator
                 }
 
         fun createTextView(textIndicators: List<FastScrollItemIndicator.Text>): TextView =
-                (LayoutInflater.from(context).inflate(
-                        R.layout.fast_scroller_indicator_text, this, false
-                ) as TextView).apply {
+                (LayoutInflater.from(context).inflate(R.layout.fast_scroller_indicator_text, this, false) as TextView).apply {
                     TextViewCompat.setTextAppearance(this, textAppearanceRes)
                     textColor?.let(::setTextColor)
                     updatePadding(top = textPadding.toInt(), bottom = textPadding.toInt())
@@ -256,9 +252,7 @@ class FastScrollerView @JvmOverloads constructor(
             var index = 0
             while (index <= lastIndex) {
                 @Suppress("UNCHECKED_CAST")
-                val textIndicatorsBatch = subList(index, size)
-                        .takeWhile { it is FastScrollItemIndicator.Text }
-                        as List<FastScrollItemIndicator.Text>
+                val textIndicatorsBatch = subList(index, size).takeWhile { it is FastScrollItemIndicator.Text } as List<FastScrollItemIndicator.Text>
                 if (textIndicatorsBatch.isNotEmpty()) {
                     views.add(createTextView(textIndicatorsBatch))
                     index += textIndicatorsBatch.size
@@ -352,15 +346,15 @@ class FastScrollerView @JvmOverloads constructor(
                         @Suppress("UNCHECKED_CAST")
                         val possibleTouchedIndicators = view.tag as List<FastScrollItemIndicator.Text>
                         val textIndicatorsTouchY = touchY - view.top
-                        val textLineHeight = view.height / possibleTouchedIndicators.size
+
+                        val textLineHeight = heightForCalculations / possibleTouchedIndicators.size
                         val touchedIndicatorIndex = min(
                                 textIndicatorsTouchY / textLineHeight,
                                 possibleTouchedIndicators.lastIndex
                         )
-                        val touchedIndicator = possibleTouchedIndicators[touchedIndicatorIndex]
 
-                        val centerY = view.y.toInt() +
-                                (textLineHeight / 2) + (touchedIndicatorIndex * textLineHeight)
+                        val touchedIndicator = possibleTouchedIndicators[touchedIndicatorIndex]
+                        val centerY = view.y.toInt() + (textLineHeight / 2) + (touchedIndicatorIndex * textLineHeight)
                         selectItemIndicator(touchedIndicator, centerY, view, textLine = touchedIndicatorIndex)
                         consumed = true
                     }
