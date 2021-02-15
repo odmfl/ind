@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -69,7 +66,7 @@ class FastScrollerView @JvmOverloads constructor(
 
     var pressedIconColor: Int? = null
     var pressedTextColor: Int? = null
-    var heightForCalculations = 0   // avoid glitching if the whole fastscroller doesnt fit onto the screen
+    private var heightForCalculations = 0   // avoid glitching if the whole fastscroller doesnt fit onto the screen
 
     internal var itemIndicatorsBuilder: ItemIndicatorsBuilder = ItemIndicatorsBuilder()
 
@@ -238,12 +235,20 @@ class FastScrollerView @JvmOverloads constructor(
 
         fun createTextView(textIndicators: List<FastScrollItemIndicator.Text>): TextView =
                 (LayoutInflater.from(context).inflate(R.layout.fast_scroller_indicator_text, this, false) as TextView).apply {
+                    val textView = this
                     TextViewCompat.setTextAppearance(this, textAppearanceRes)
                     textColor?.let(::setTextColor)
                     updatePadding(top = textPadding.toInt(), bottom = textPadding.toInt())
                     setLineSpacing(textPadding, lineSpacingMultiplier)
                     text = textIndicators.joinToString(separator = "\n") { it.text }
                     tag = textIndicators
+
+                    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                        override fun onGlobalLayout() {
+                            heightForCalculations = textView.lineHeight * textIndicators.size
+                            viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        }
+                    })
                 }
 
         // Optimize the views by batching adjacent text indicators into a single TextView
