@@ -335,6 +335,10 @@ class FastScrollerView @JvmOverloads constructor(
         val touchY = event.y.toInt()
         children.forEach { view ->
             if (view.containsY(touchY)) {
+                if (heightForCalculations == 0) {
+                    heightForCalculations = view.height
+                }
+
                 when (view) {
                     is ImageView -> {
                         val touchedIndicator = view.tag as FastScrollItemIndicator.Icon
