@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 buildscript {
     repositories {
@@ -50,4 +51,14 @@ dependencies {
     testImplementation 'androidx.test:rules:1.2.0'
     testImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+            }
+        }
+    }
 }
