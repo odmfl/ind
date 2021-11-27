@@ -9,23 +9,23 @@ import androidx.core.view.updatePaddingRelative
 import androidx.recyclerview.widget.RecyclerView
 
 class SampleAdapter(
-        private val data: List<ListItem>
+    private val data: List<ListItem>
 ) : RecyclerView.Adapter<SampleAdapter.ViewHolder>() {
 
     private val containsHeaders: Boolean = data.any { it is ListItem.HeaderItem }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return LayoutInflater.from(parent.context)
-                .inflate(
-                        when (viewType) {
-                            VIEWTYPE_HEADER -> R.layout.header_item
-                            VIEWTYPE_DATA -> R.layout.data_item
-                            else -> throw IllegalArgumentException()
-                        },
-                        parent,
-                        false
-                )
-                .let(::ViewHolder)
+            .inflate(
+                when (viewType) {
+                    VIEWTYPE_HEADER -> R.layout.header_item
+                    VIEWTYPE_DATA -> R.layout.data_item
+                    else -> throw IllegalArgumentException()
+                },
+                parent,
+                false
+            )
+            .let(::ViewHolder)
     }
 
     override fun getItemCount() = data.count()
@@ -55,18 +55,20 @@ class SampleAdapter(
                         titleView.compoundDrawableTintList = iconColor
                     } else {
                         titleView.compoundDrawablesRelative
-                                .filterNotNull()
-                                .forEach {
-                                    it.setTintList(iconColor)
-                                }
+                            .filterNotNull()
+                            .forEach {
+                                it.setTintList(iconColor)
+                            }
                     }
                 }
                 is ListItem.DataItem -> {
                     titleView.text = listItem.title
                     if (containsHeaders) {
-                        titleView.updatePaddingRelative(start = titleView.context.resources.getDimensionPixelSize(
+                        titleView.updatePaddingRelative(
+                            start = titleView.context.resources.getDimensionPixelSize(
                                 R.dimen.list_with_headers_start_padding
-                        ))
+                            )
+                        )
                     }
                 }
             }

@@ -23,16 +23,18 @@ class CustomScrollFragment : Fragment() {
     private lateinit var fastScrollerThumbView: FastScrollerThumbView
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.sample_basic, container, false)
 
-        val data = listOf(ListItem.DataItem(
+        val data = listOf(
+            ListItem.DataItem(
                 "Items will be scrolled to the top!",
                 showInFastScroll = false
-        )) + SAMPLE_DATA_TEXT
+            )
+        ) + SAMPLE_DATA_TEXT
 
         recyclerView = view.findViewById(R.id.sample_basic_recyclerview)
         val linearLayoutManager = LinearLayoutManager(context)
@@ -44,30 +46,30 @@ class CustomScrollFragment : Fragment() {
         fastScrollerView = view.findViewById(R.id.sample_basic_fastscroller)
         fastScrollerView.apply {
             setupWithRecyclerView(
-                    recyclerView,
-                    { position ->
-                        data[position]
-                                .takeIf(ListItem::showInFastScroll)
-                                ?.let { item ->
-                                    FastScrollItemIndicator.Text(
-                                            item
-                                                    .title
-                                                    .substring(0, 1)
-                                                    .toUpperCase()
-                                    )
-                                }
-                    },
-                    useDefaultScroller = false
+                recyclerView,
+                { position ->
+                    data[position]
+                        .takeIf(ListItem::showInFastScroll)
+                        ?.let { item ->
+                            FastScrollItemIndicator.Text(
+                                item
+                                    .title
+                                    .substring(0, 1)
+                                    .toUpperCase()
+                            )
+                        }
+                },
+                useDefaultScroller = false
             )
             val smoothScroller: LinearSmoothScroller = object : LinearSmoothScroller(context) {
                 override fun getVerticalSnapPreference(): Int = SNAP_TO_START
             }
             itemIndicatorSelectedCallbacks += object : FastScrollerView.ItemIndicatorSelectedCallback {
                 override fun onItemIndicatorSelected(
-                        indicator: FastScrollItemIndicator,
-                        indicatorCenterY: Int,
-                        itemPosition: Int,
-                        moveInstantly: Boolean
+                    indicator: FastScrollItemIndicator,
+                    indicatorCenterY: Int,
+                    itemPosition: Int,
+                    moveInstantly: Boolean
                 ) {
                     recyclerView.stopScroll()
                     smoothScroller.targetPosition = itemPosition

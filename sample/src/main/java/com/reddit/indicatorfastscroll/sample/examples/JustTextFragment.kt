@@ -22,9 +22,9 @@ class JustTextFragment : Fragment() {
     private lateinit var fastScrollerThumbView: FastScrollerThumbView
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.sample_basic, container, false)
 
@@ -39,18 +39,18 @@ class JustTextFragment : Fragment() {
         fastScrollerView = view.findViewById(R.id.sample_basic_fastscroller)
         fastScrollerView.apply {
             setupWithRecyclerView(
-                    recyclerView,
-                    { position ->
-                        data[position]
-                                .takeIf(ListItem::showInFastScroll)
-                                ?.let { item ->
-                                    FastScrollItemIndicator.Text(
-                                            item.title
-                                                    .substring(0, 1)
-                                                    .toUpperCase()
-                                    )
-                                }
-                    }
+                recyclerView,
+                { position ->
+                    data[position]
+                        .takeIf(ListItem::showInFastScroll)
+                        ?.let { item ->
+                            FastScrollItemIndicator.Text(
+                                item.title
+                                    .substring(0, 1)
+                                    .toUpperCase()
+                            )
+                        }
+                }
             )
         }
 

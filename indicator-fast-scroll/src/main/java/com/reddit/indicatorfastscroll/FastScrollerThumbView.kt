@@ -36,13 +36,13 @@ import androidx.dynamicanimation.animation.SpringForce
  * @see FastScrollerView
  */
 class FastScrollerThumbView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = R.attr.indicatorFastScrollerThumbStyle
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = R.attr.indicatorFastScrollerThumbStyle
 ) : ConstraintLayout(
-        context,
-        attrs,
-        defStyleAttr
+    context,
+    attrs,
+    defStyleAttr
 ), FastScrollerView.ItemIndicatorSelectedCallback {
 
     var thumbColor: ColorStateList by onUpdate(::applyStyle)
@@ -61,10 +61,10 @@ class FastScrollerThumbView @JvmOverloads constructor(
 
     init {
         context.theme.obtainStyledAttributes(
-                attrs,
-                R.styleable.FastScrollerThumbView,
-                defStyleAttr,
-                R.style.Widget_IndicatorFastScroll_FastScrollerThumb
+            attrs,
+            R.styleable.FastScrollerThumbView,
+            defStyleAttr,
+            R.style.Widget_IndicatorFastScroll_FastScrollerThumb
         ).use { attrsArray ->
             throwIfMissingAttrs(styleRes = R.style.Widget_IndicatorFastScroll_FastScrollerThumb) {
                 thumbColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerThumbView_fastScrollerThumbColor)
@@ -131,10 +131,10 @@ class FastScrollerThumbView @JvmOverloads constructor(
     }
 
     override fun onItemIndicatorSelected(
-            indicator: FastScrollItemIndicator,
-            indicatorCenterY: Int,
-            itemPosition: Int,
-            moveInstantly: Boolean
+        indicator: FastScrollItemIndicator,
+        indicatorCenterY: Int,
+        itemPosition: Int,
+        moveInstantly: Boolean
     ) {
         val thumbTargetY = indicatorCenterY.toFloat() - (thumbView.measuredHeight / 2)
 

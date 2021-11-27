@@ -31,15 +31,15 @@ typealias ItemIndicatorWithPosition = Pair<FastScrollItemIndicator, Int>
  * @see FastScrollerThumbView
  */
 class FastScrollerView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = R.attr.indicatorFastScrollerStyle,
-        defStyleRes: Int = R.style.Widget_IndicatorFastScroll_FastScroller
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = R.attr.indicatorFastScrollerStyle,
+    defStyleRes: Int = R.style.Widget_IndicatorFastScroll_FastScroller
 ) : LinearLayout(
-        context,
-        attrs,
-        defStyleAttr,
-        defStyleRes
+    context,
+    attrs,
+    defStyleAttr,
+    defStyleRes
 ) {
     var iconColor: ColorStateList? = null
         set(value) {
@@ -122,10 +122,10 @@ class FastScrollerView @JvmOverloads constructor(
 
     init {
         context.theme.obtainStyledAttributes(
-                attrs,
-                R.styleable.FastScrollerView,
-                defStyleAttr,
-                defStyleRes
+            attrs,
+            R.styleable.FastScrollerView,
+            defStyleAttr,
+            defStyleRes
         ).use { attrsArray ->
             throwIfMissingAttrs(styleRes = R.style.Widget_IndicatorFastScroll_FastScroller) {
                 iconColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_fastScrollerIconColor)
@@ -142,11 +142,11 @@ class FastScrollerView @JvmOverloads constructor(
 
         if (isInEditMode) {
             itemIndicatorsWithPositions += listOf(
-                    ItemIndicatorWithPosition(FastScrollItemIndicator.Text("A"), 0),
-                    ItemIndicatorWithPosition(FastScrollItemIndicator.Text("B"), 1),
-                    ItemIndicatorWithPosition(FastScrollItemIndicator.Text("C"), 2),
-                    ItemIndicatorWithPosition(FastScrollItemIndicator.Text("D"), 3),
-                    ItemIndicatorWithPosition(FastScrollItemIndicator.Text("E"), 4)
+                ItemIndicatorWithPosition(FastScrollItemIndicator.Text("A"), 0),
+                ItemIndicatorWithPosition(FastScrollItemIndicator.Text("B"), 1),
+                ItemIndicatorWithPosition(FastScrollItemIndicator.Text("C"), 2),
+                ItemIndicatorWithPosition(FastScrollItemIndicator.Text("D"), 3),
+                ItemIndicatorWithPosition(FastScrollItemIndicator.Text("E"), 4)
             )
             bindItemIndicatorViews()
         }
@@ -176,10 +176,10 @@ class FastScrollerView @JvmOverloads constructor(
      */
     @JvmOverloads
     fun setupWithRecyclerView(
-            recyclerView: RecyclerView,
-            getItemIndicator: (Int) -> FastScrollItemIndicator?,
-            showIndicator: ((FastScrollItemIndicator, Int, Int) -> Boolean)? = null,
-            useDefaultScroller: Boolean = true
+        recyclerView: RecyclerView,
+        getItemIndicator: (Int) -> FastScrollItemIndicator?,
+        showIndicator: ((FastScrollItemIndicator, Int, Int) -> Boolean)? = null,
+        useDefaultScroller: Boolean = true
     ) {
         this.recyclerView = recyclerView
         this.getItemIndicator = getItemIndicator
@@ -214,7 +214,7 @@ class FastScrollerView @JvmOverloads constructor(
     private fun updateItemIndicators() {
         itemIndicatorsWithPositions.clear()
         itemIndicatorsBuilder.buildItemIndicators(recyclerView!!, getItemIndicator, showIndicator)
-                .toCollection(itemIndicatorsWithPositions)
+            .toCollection(itemIndicatorsWithPositions)
 
         bindItemIndicatorViews()
     }
@@ -227,29 +227,29 @@ class FastScrollerView @JvmOverloads constructor(
         }
 
         fun createIconView(iconIndicator: FastScrollItemIndicator.Icon): ImageView =
-                (LayoutInflater.from(context).inflate(R.layout.fast_scroller_indicator_icon, this, false) as ImageView).apply {
-                    iconColor?.let(::setImageTintList)
-                    setImageResource(iconIndicator.iconRes)
-                    tag = iconIndicator
-                }
+            (LayoutInflater.from(context).inflate(R.layout.fast_scroller_indicator_icon, this, false) as ImageView).apply {
+                iconColor?.let(::setImageTintList)
+                setImageResource(iconIndicator.iconRes)
+                tag = iconIndicator
+            }
 
         fun createTextView(textIndicators: List<FastScrollItemIndicator.Text>): TextView =
-                (LayoutInflater.from(context).inflate(R.layout.fast_scroller_indicator_text, this, false) as TextView).apply {
-                    val textView = this
-                    TextViewCompat.setTextAppearance(this, textAppearanceRes)
-                    textColor?.let(::setTextColor)
-                    updatePadding(top = textPadding.toInt(), bottom = textPadding.toInt())
-                    setLineSpacing(textPadding, lineSpacingMultiplier)
-                    text = textIndicators.joinToString(separator = "\n") { it.text }
-                    tag = textIndicators
+            (LayoutInflater.from(context).inflate(R.layout.fast_scroller_indicator_text, this, false) as TextView).apply {
+                val textView = this
+                TextViewCompat.setTextAppearance(this, textAppearanceRes)
+                textColor?.let(::setTextColor)
+                updatePadding(top = textPadding.toInt(), bottom = textPadding.toInt())
+                setLineSpacing(textPadding, lineSpacingMultiplier)
+                text = textIndicators.joinToString(separator = "\n") { it.text }
+                tag = textIndicators
 
-                    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-                        override fun onGlobalLayout() {
-                            heightForCalculations = textView.lineHeight * textIndicators.size
-                            viewTreeObserver.removeOnGlobalLayoutListener(this)
-                        }
-                    })
-                }
+                viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        heightForCalculations = textView.lineHeight * textIndicators.size
+                        viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    }
+                })
+            }
 
         // Optimize the views by batching adjacent text indicators into a single TextView
         val views = ArrayList<View>()
@@ -278,14 +278,14 @@ class FastScrollerView @JvmOverloads constructor(
     }
 
     private fun selectItemIndicator(
-            indicator: FastScrollItemIndicator,
-            indicatorCenterY: Int,
-            touchedView: View,
-            textLine: Int?
+        indicator: FastScrollItemIndicator,
+        indicatorCenterY: Int,
+        touchedView: View,
+        textLine: Int?
     ) {
         val position = itemIndicatorsWithPositions
-                .first { it.first == indicator }
-                .let(ItemIndicatorWithPosition::second)
+            .first { it.first == indicator }
+            .let(ItemIndicatorWithPosition::second)
 
         if (position != lastSelectedPosition) {
             clearSelectedItemIndicator()
@@ -358,8 +358,8 @@ class FastScrollerView @JvmOverloads constructor(
 
                         val textLineHeight = heightForCalculations / possibleTouchedIndicators.size
                         val touchedIndicatorIndex = min(
-                                textIndicatorsTouchY / textLineHeight,
-                                possibleTouchedIndicators.lastIndex
+                            textIndicatorsTouchY / textLineHeight,
+                            possibleTouchedIndicators.lastIndex
                         )
 
                         val touchedIndicator = possibleTouchedIndicators[touchedIndicatorIndex]
@@ -380,8 +380,8 @@ class FastScrollerView @JvmOverloads constructor(
     companion object {
 
         private val MOTIONEVENT_STOP_ACTIONS = intArrayOf(
-                MotionEvent.ACTION_UP,
-                MotionEvent.ACTION_CANCEL
+            MotionEvent.ACTION_UP,
+            MotionEvent.ACTION_CANCEL
         )
 
         private fun FastScrollerView.createAdapterDataObserver(): RecyclerView.AdapterDataObserver {
@@ -391,26 +391,26 @@ class FastScrollerView @JvmOverloads constructor(
                 }
 
                 override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) =
-                        onChanged()
+                    onChanged()
 
                 override fun onItemRangeInserted(positionStart: Int, itemCount: Int) =
-                        onChanged()
+                    onChanged()
 
                 override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) =
-                        onChanged()
+                    onChanged()
 
                 override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) =
-                        onChanged()
+                    onChanged()
             }
         }
     }
 
     interface ItemIndicatorSelectedCallback {
         fun onItemIndicatorSelected(
-                indicator: FastScrollItemIndicator,
-                indicatorCenterY: Int,
-                itemPosition: Int,
-                moveInstantly: Boolean
+            indicator: FastScrollItemIndicator,
+            indicatorCenterY: Int,
+            itemPosition: Int,
+            moveInstantly: Boolean
         )
     }
 }

@@ -17,10 +17,10 @@ internal object TextColorUtil {
                     clearSpans()
                     val linesUpToHighlight = lineSequence().take(highlightedIndex + 1).toList() // inclusive
                     val start = linesUpToHighlight
-                            .dropLast(1)
-                            .fold(0) { acc, line ->
-                                acc + line.length + 1
-                            }
+                        .dropLast(1)
+                        .fold(0) { acc, line ->
+                            acc + line.length + 1
+                        }
                     val highlightedLineSize = linesUpToHighlight.lastOrNull()?.length ?: 0
 
                     setSpan(ForegroundColorSpan(color), start, start + highlightedLineSize, 0)

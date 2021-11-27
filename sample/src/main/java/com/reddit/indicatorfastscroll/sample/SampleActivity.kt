@@ -38,13 +38,13 @@ class SampleActivity : AppCompatActivity() {
                 text = sample.title
                 setOnClickListener {
                     supportFragmentManager
-                            .beginTransaction()
-                            .replace(
-                                    R.id.main_sample_fragment,
-                                    Fragment.instantiate(this@SampleActivity, sample.fragmentClass.name)
-                            )
-                            .addToBackStack(null)
-                            .commit()
+                        .beginTransaction()
+                        .replace(
+                            R.id.main_sample_fragment,
+                            Fragment.instantiate(this@SampleActivity, sample.fragmentClass.name)
+                        )
+                        .addToBackStack(null)
+                        .commit()
                 }
             }
             sampleButtonsView.addView(button)

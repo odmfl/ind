@@ -33,23 +33,23 @@ class TextWithIconFragment : Fragment() {
         fastScrollerView = view.findViewById(R.id.sample_basic_fastscroller)
         fastScrollerView.apply {
             setupWithRecyclerView(
-                    recyclerView,
-                    { position ->
-                        data[position]
-                                .takeIf(ListItem::showInFastScroll)
-                                ?.let { item ->
-                                    when (item) {
-                                        is ListItem.HeaderItem -> FastScrollItemIndicator.Icon(item.iconRes)
-                                        is ListItem.DataItem ->
-                                            FastScrollItemIndicator.Text(
-                                                    item
-                                                            .title
-                                                            .substring(0, 1)
-                                                            .toUpperCase()
-                                            )
-                                    }
-                                }
-                    }
+                recyclerView,
+                { position ->
+                    data[position]
+                        .takeIf(ListItem::showInFastScroll)
+                        ?.let { item ->
+                            when (item) {
+                                is ListItem.HeaderItem -> FastScrollItemIndicator.Icon(item.iconRes)
+                                is ListItem.DataItem ->
+                                    FastScrollItemIndicator.Text(
+                                        item
+                                            .title
+                                            .substring(0, 1)
+                                            .toUpperCase()
+                                    )
+                            }
+                        }
+                }
             )
         }
 
