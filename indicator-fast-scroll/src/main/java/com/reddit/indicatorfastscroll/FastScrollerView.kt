@@ -18,7 +18,6 @@ import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.min
-import me.grantland.widget.AutofitHelper
 
 typealias ItemIndicatorWithPosition = Pair<FastScrollItemIndicator, Int>
 
@@ -130,7 +129,7 @@ class FastScrollerView @JvmOverloads constructor(
         ).use { attrsArray ->
             throwIfMissingAttrs(styleRes = R.style.Widget_IndicatorFastScroll_FastScroller) {
                 iconColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_fastScrollerIconColor)
-                //textAppearanceRes = attrsArray.getResourceIdOrThrow(R.styleable.FastScrollerView_android_textAppearance)
+                textAppearanceRes = attrsArray.getResourceIdOrThrow(R.styleable.FastScrollerView_android_textAppearance)
                 textColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_android_textColor)
                 textPadding = attrsArray.getDimensionOrThrow(R.styleable.FastScrollerView_fastScrollerTextPadding)
             }
@@ -237,7 +236,6 @@ class FastScrollerView @JvmOverloads constructor(
         fun createTextView(textIndicators: List<FastScrollItemIndicator.Text>): TextView =
             (LayoutInflater.from(context).inflate(R.layout.fast_scroller_indicator_text, this, false) as TextView).apply {
                 val textView = this
-                AutofitHelper.create(this)
                 TextViewCompat.setTextAppearance(this, textAppearanceRes)
                 textColor?.let(::setTextColor)
                 updatePadding(top = textPadding.toInt(), bottom = textPadding.toInt())
