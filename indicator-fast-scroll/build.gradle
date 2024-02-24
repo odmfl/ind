@@ -50,8 +50,6 @@ dependencies {
     testImplementation 'androidx.test:rules:1.2.0'
     testImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
-
-    implementation 'me.grantland:autofittextview:0.2.1'
 }
 
 project.afterEvaluate {
