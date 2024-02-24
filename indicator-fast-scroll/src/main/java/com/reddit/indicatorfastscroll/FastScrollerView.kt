@@ -130,7 +130,7 @@ class FastScrollerView @JvmOverloads constructor(
         ).use { attrsArray ->
             throwIfMissingAttrs(styleRes = R.style.Widget_IndicatorFastScroll_FastScroller) {
                 iconColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_fastScrollerIconColor)
-                textAppearanceRes = attrsArray.getResourceIdOrThrow(R.styleable.FastScrollerView_android_textAppearance)
+                //textAppearanceRes = attrsArray.getResourceIdOrThrow(R.styleable.FastScrollerView_android_textAppearance)
                 textColor = attrsArray.getColorStateListOrThrow(R.styleable.FastScrollerView_android_textColor)
                 textPadding = attrsArray.getDimensionOrThrow(R.styleable.FastScrollerView_fastScrollerTextPadding)
             }
