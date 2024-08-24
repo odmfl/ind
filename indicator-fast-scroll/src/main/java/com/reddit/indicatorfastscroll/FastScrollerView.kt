@@ -358,7 +358,7 @@ class FastScrollerView @JvmOverloads constructor(
 
                         val textLineHeight = heightForCalculations / possibleTouchedIndicators.size
                         val touchedIndicatorIndex = min(
-                            textIndicatorsTouchY / textLineHeight,
+                            if (textLineHeight != 0) textIndicatorsTouchY / textLineHeight,
                             possibleTouchedIndicators.lastIndex
                         )
 
